@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/Elen/Java/jsoup-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Elen/Java/commons-io-2.5-bin/commons-io-2.5/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Elen/Java/xerces144-10.3.jar/xerces144-10.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
