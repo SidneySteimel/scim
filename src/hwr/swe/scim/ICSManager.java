@@ -14,6 +14,12 @@ import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.component.CalendarComponent;
 
+/**
+ * This class should give information from ics files.
+ * 
+ * @author Elen Niedermeyer
+ *
+ */
 public class ICSManager {
 
 	/**
