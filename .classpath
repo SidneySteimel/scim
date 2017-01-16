@@ -19,5 +19,54 @@
 	<classpathentry kind="lib" path="C:/Users/Elen/Java/apache-log4j-2.7-bin/apache-log4j-2.7-bin/log4j-1.2-api-2.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Elen/Java/apache-log4j-2.7-bin/apache-log4j-2.7-bin/log4j-api-2.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Elen/Java/apache-log4j-2.7-bin/apache-log4j-2.7-bin/log4j-core-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-1.2-api-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-1.2-api-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-1.2-api-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-scala_2.10-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-scala_2.10-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-scala_2.11-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-api-scala_2.11-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-core-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-core-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-core-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-core-2.7-tests.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-flume-ng-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-flume-ng-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-flume-ng-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-iostreams-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-iostreams-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-iostreams-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jcl-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jcl-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jcl-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jmx-gui-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jmx-gui-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jmx-gui-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jul-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jul-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-jul-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-nosql-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-nosql-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-nosql-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-slf4j-impl-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-slf4j-impl-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-slf4j-impl-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-taglib-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-taglib-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-taglib-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-to-slf4j-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-to-slf4j-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-to-slf4j-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-web-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-web-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/apache-log4j-2.7-bin/log4j-web-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/ical4j-2.0.0/ical4j-2.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/ical4j-2.0.0/ical4j-2.0.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/plugins/ical4j-2.0.0/ical4j-2.0.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/thgae/OneDrive/Documents/commons-io-2.5/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/thgae/OneDrive/Documents/commons-io-2.5/commons-io-2.5-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
