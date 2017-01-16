@@ -48,12 +48,52 @@ public class ICSManager {
 	 * Public method that returns the name of a given event.
 	 * 
 	 * @param pEvent
-	 *            calendar component which summary you want to know
+	 *            calendar component which's summary you want to know
 	 * @return the summary as string
 	 */
 	public String getEventName(Component pEvent) {
 		// noch parsen?
 		return pEvent.getProperty(Property.SUMMARY).getValue();
+	}
+
+	/**
+	 * Public method that returns the start time of a given event.
+	 * 
+	 * @param pEvent
+	 *            calendar component which's start time you want to know
+	 * @return the start time as an date object
+	 */
+	public Date getStartTime(Component pEvent) {
+		// get the start time and parse it to a date object
+		String startTime = pEvent.getProperty(Property.DTSTART).getValue();
+		Date startDate = null;
+		try {
+			startDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(startTime);
+		} catch (ParseException e) {
+			// hier noch was überlegen
+			e.printStackTrace();
+		}
+		return startDate;
+	}
+
+	/**
+	 * Public method that retunrs the end time of a given event.
+	 * 
+	 * @param pEvent
+	 *            calendar component which's end time you want to know
+	 * @return the end time as an date object
+	 */
+	public Date getEndTime(Component pEvent) {
+		// get the end time and parse it to a date object{
+		String endTime = pEvent.getProperty(Property.DTEND).getValue();
+		Date endDate = null;
+		try {
+			endDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(endTime);
+		} catch (ParseException e) {
+			// hier noch was überlegen
+			e.printStackTrace();
+		}
+		return endDate;
 	}
 
 	/**
