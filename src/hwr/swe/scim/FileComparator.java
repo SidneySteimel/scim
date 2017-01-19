@@ -78,7 +78,7 @@ public class FileComparator {
 	 * @param pNewEvents
 	 *            new list with events
 	 * @param pResult
-	 *            list which schould contain the deleted events
+	 *            list which should contain the deleted events
 	 */
 	private void getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult) {
 		Iterator<Component> iteratorOldEvents = pOldEvents.iterator();
