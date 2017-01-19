@@ -26,6 +26,7 @@ public class ICSManager {
 	 * events are started and ended with this tag
 	 */
 	private static final String eventTag = "VEVENT";
+	
 	/**
 	 * a class attribute that is the actual calendar
 	 */
@@ -77,7 +78,7 @@ public class ICSManager {
 	}
 
 	/**
-	 * Public method that retunrs the end time of a given event.
+	 * Public method that returns the end time of a given event.
 	 * 
 	 * @param pEvent
 	 *            calendar component which's end time you want to know
@@ -114,7 +115,7 @@ public class ICSManager {
 	}
 
 	/**
-	 * Iterates over the class attribut calendar on adds all events to a list.
+	 * Iterates over the class attribute calendar on adds all events to a list.
 	 * 
 	 * @return a list of calendar components
 	 */
