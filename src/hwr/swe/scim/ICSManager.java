@@ -71,7 +71,7 @@ public class ICSManager {
 		try {
 			startDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(startTime);
 		} catch (ParseException e) {
-			// hier noch was überlegen
+			// logger needed here
 			e.printStackTrace();
 		}
 		return startDate;
@@ -91,7 +91,7 @@ public class ICSManager {
 		try {
 			endDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(endTime);
 		} catch (ParseException e) {
-			// hier noch was überlegen
+			// logger needed here
 			e.printStackTrace();
 		}
 		return endDate;
@@ -109,7 +109,7 @@ public class ICSManager {
 			CalendarBuilder builder = new CalendarBuilder();
 			calendar = builder.build(input);
 		} catch (Exception e) {
-			// hier noch was überlegen
+			// logger needed here
 			e.printStackTrace();
 		}
 	}
@@ -147,7 +147,7 @@ public class ICSManager {
 			try {
 				startDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(startTime);
 			} catch (ParseException e) {
-				// hier noch was überlegen
+				// logger needed here
 				e.printStackTrace();
 			}
 			// get today's date
