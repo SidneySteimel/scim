@@ -1,5 +1,7 @@
 package hwr.swe.scim;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -60,8 +62,19 @@ public class Lecture {
 		this.isCreated = pFlag;
 	}
 
+	/**
+	 * Returns a string that descripes the lecture in a readable string. It's a
+	 * german string.
+	 */
 	@Override
 	public String toString() {
-		return "";
+		Format dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		String startDateString = dateFormat.format(startTime);
+		Format timeFormat = new SimpleDateFormat("HH.mm");
+		String startTimeString = timeFormat.format(startTime);
+		String endTimeString = timeFormat.format(endTime);
+		String string = "Veranstaltung: " + name + " am " + startDateString + " von " + startTimeString + " bis "
+				+ endTimeString;
+		return string;
 	}
 }
