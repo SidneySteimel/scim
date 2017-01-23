@@ -42,10 +42,7 @@ public class MainProgramm {
 					newFileCopy);
 
 			// give a message, if there's a change
-			List<String> changes = comparator.compareFiles(oldFile, newFileCopy);
-			if (!changes.isEmpty()) {
-				mailManager.giveMessage(changes);
-			}
+			
 
 			// replace the old file with the new one
 			replaceOldFile(newFileCopy, oldFile);
