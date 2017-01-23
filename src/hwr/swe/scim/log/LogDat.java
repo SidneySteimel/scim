@@ -54,5 +54,10 @@ public class LogDat {
 		// e.printStackTrace();
 		// }
 	}
+	
+	public void close(String message){
+		log.info(message);
+		log.info("system closed");
+	}
 
 }
