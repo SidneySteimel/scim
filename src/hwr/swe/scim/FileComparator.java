@@ -1,64 +1,112 @@
 package hwr.swe.scim;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Component;
 
+/**
+ * This class compares two ics files.
+ * 
+ * @author Elen Niedermeyer
+ *
+ */
 public class FileComparator {
 
 	/**
-	 * This method compares the two given HTML files.
+	 * Instance of the ICSManager.
+	 */
+	private ICSManager icsManager = new ICSManager();
+
+	/**
+	 * This method gets lists of events from the given files and makes a list
+	 * with events that are not in both lists.
 	 * 
 	 * @param pOldFile
-	 *            a File object that is a HTML file
+	 *            path to the old ics file
 	 * @param pNewFile
-	 *            a File object that is a HTML file
-	 * @return a List<String> that includes a message, if there are changes
+	 *            path to the new ics file
+	 * @return a list that contains descriptions of the lectures that are added
+	 *         or deleted
+	 * @throws ParserException
+	 *             if there's a problem with parsing the ics file
+	 * @throws IOException
+	 *             if the file doesn't exists * @throws ParseException if
+	 *             there's a problem with parsing dates
 	 */
-	public List<String> compareFiles(File pOldFile, File pNewFile) {
-		// new List<String> is created and set null
-		List<String> changes = new ArrayList<String>();
+	public List<Lecture> getChanges(String pOldFile, String pNewFile)
+			throws IOException, ParserException, ParseException {
+		List<Component> oldEvents = icsManager.getRelevantEvents(pOldFile);
+		List<Component> newEvents = icsManager.getRelevantEvents(pNewFile);
 
-		// get two comparable List<String> of the files
-		List<String> oldFileRelevant = getRelevantStringsFromHTML(pOldFile);
-		List<String> newFileRelevant = getRelevantStringsFromHTML(pNewFile);
+		List<Lecture> changes = new LinkedList<Lecture>();
 
-		// if there is in the new file an object that isn't in the old one, it
-		// must be different an there must be a message
-		if (!oldFileRelevant.containsAll(newFileRelevant)) {
-			changes.add("There's a change");
-		}
+		getDeletedEvents(oldEvents, newEvents, changes);
+
+		getAddedEvents(oldEvents, newEvents, changes);
 
 		return changes;
 	}
 
 	/**
-	 * This method gets a file. It parses a Document of HTML code and gets all
-	 * elements by tag 'table'. Than is creates String of these elements and
-	 * adds it to a list.
+	 * This method compares a list of old events with a new list of events. If a
+	 * new events isn't part of the old list, it must be added.
 	 * 
-	 * @param pFile
-	 *            a File object of which you want to get the tables as String
-	 * @return a List<String> that includes all 'table' elements of the given
-	 *         file as String
+	 * @param pOldEvents
+	 *            old list with events
+	 * @param pNewEvents
+	 *            new list with events
+	 * @param pResult
+	 *            list which should contain the added events
+	 * @throws ParseException
+	 *             if there's a problem getting the dates
 	 */
-	private List<String> getRelevantStringsFromHTML(File pFile) {
-		List<String> htmlList = new ArrayList<String>();
-		try {
-			Document doc = Jsoup.parse(pFile, null);
-			Elements elements = doc.getElementsByTag("table");
-
-			for (Element element : elements) {
-				htmlList.add(element.html());
+	private void getAddedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
+			throws ParseException {
+		Iterator<Component> iteratorNewEvents = pNewEvents.iterator();
+		while (iteratorNewEvents.hasNext()) {
+			Component component = iteratorNewEvents.next();
+			if (!pOldEvents.contains(component)) {
+				Lecture addedLecture = new Lecture();
+				addedLecture.setName(icsManager.getEventName(component));
+				addedLecture.setStartTime(icsManager.getStartTime(component));
+				addedLecture.setEndTime(icsManager.getEndTime(component));
+				addedLecture.setIsCreated(true);
+				pResult.add(addedLecture);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return htmlList;
+	}
+
+	/**
+	 * This method compares a list of old event with a new list of events. If an
+	 * old event isn't part of the new list, it must be deleted.
+	 * 
+	 * @param pOldEvents
+	 *            old list with events
+	 * @param pNewEvents
+	 *            new list with events
+	 * @param pResult
+	 *            list which should contain the deleted events
+	 * @throws ParseException
+	 *             if there's a problem getting the dates
+	 */
+	private void getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
+			throws ParseException {
+		Iterator<Component> iteratorOldEvents = pOldEvents.iterator();
+		while (iteratorOldEvents.hasNext()) {
+			Component component = iteratorOldEvents.next();
+			if (!pNewEvents.contains(component)) {
+				Lecture deletedLecture = new Lecture();
+				deletedLecture.setName(icsManager.getEventName(component));
+				deletedLecture.setStartTime(icsManager.getStartTime(component));
+				deletedLecture.setEndTime(icsManager.getEndTime(component));
+				deletedLecture.setIsCreated(false);
+				pResult.add(deletedLecture);
+			}
+		}
 	}
 }
