@@ -35,8 +35,9 @@ public class FileComparator {
 	 * @throws ParserException
 	 *             if there's a problem with parsing the ics file
 	 * @throws IOException
-	 *             if the file doesn't exists * @throws ParseException if
-	 *             there's a problem with parsing dates
+	 *             if the file doesn't exists
+	 * @throws ParseException
+	 *             if there's a problem with parsing dates
 	 */
 	public List<Lecture> getChanges(String pOldFile, String pNewFile)
 			throws IOException, ParserException, ParseException {
