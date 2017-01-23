@@ -1,9 +1,12 @@
 package hwr.swe.scim;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Component;
 
 /**
@@ -29,8 +32,14 @@ public class FileComparator {
 	 *            path to the new ics file
 	 * @return a list that contains descriptions of the lectures that are added
 	 *         or deleted
+	 * @throws ParserException
+	 *             if there's a problem with parsing the ics file
+	 * @throws IOException
+	 *             if the file doesn't exists * @throws ParseException if
+	 *             there's a problem with parsing dates
 	 */
-	public List<Lecture> getChanges(String pOldFile, String pNewFile) {
+	public List<Lecture> getChanges(String pOldFile, String pNewFile)
+			throws IOException, ParserException, ParseException {
 		List<Component> oldEvents = icsManager.getRelevantEvents(pOldFile);
 		List<Component> newEvents = icsManager.getRelevantEvents(pNewFile);
 
@@ -53,8 +62,11 @@ public class FileComparator {
 	 *            new list with events
 	 * @param pResult
 	 *            list which should contain the added events
+	 * @throws ParseException
+	 *             if there's a problem getting the dates
 	 */
-	private void getAddedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult) {
+	private void getAddedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
+			throws ParseException {
 		Iterator<Component> iteratorNewEvents = pNewEvents.iterator();
 		while (iteratorNewEvents.hasNext()) {
 			Component component = iteratorNewEvents.next();
@@ -79,8 +91,11 @@ public class FileComparator {
 	 *            new list with events
 	 * @param pResult
 	 *            list which should contain the deleted events
+	 * @throws ParseException
+	 *             if there's a problem getting the dates
 	 */
-	private void getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult) {
+	private void getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
+			throws ParseException {
 		Iterator<Component> iteratorOldEvents = pOldEvents.iterator();
 		while (iteratorOldEvents.hasNext()) {
 			Component component = iteratorOldEvents.next();
