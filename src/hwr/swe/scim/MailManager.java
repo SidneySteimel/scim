@@ -76,10 +76,9 @@ public class MailManager implements MessageManager {
 			if (lecture.getIsCreated()) {
 				generatedText += "\nNeue " + lecture.toString();
 			} else {
-				generatedText += "\nGelöschte " + lecture.toString();
+				generatedText += "\nGelï¿½schte " + lecture.toString();
 			}
 		}
 		return generatedText;
 	}
 }
-
