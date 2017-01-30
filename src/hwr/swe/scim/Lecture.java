@@ -61,6 +61,15 @@ public class Lecture {
 	public void setIsCreated(boolean pFlag) {
 		this.isCreated = pFlag;
 	}
+	
+	/**
+	 * Getter of the isCreated flag.
+	 * 
+	 * @return isCreated attribute
+	 */
+	public boolean getIsCreated() {
+		return isCreated;
+	}
 
 	/**
 	 * Returns a string that descripes the lecture in a readable string. It's a
