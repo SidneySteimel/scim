@@ -8,14 +8,18 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * 
+ * This class is dealing with the logger.
+ * The logfiles are at C:/Temp/ and are named with date as yyMMddkkmm. It is possible to add messages in 5 different Levels from ENUM logLevel. 
  * @author Thomas
- *
  */
 public class LogDat {
 	private Logger log;
 	private String directory = "C:/Temp/";
 
+	/**
+	 * Constructor: build the path and create the logger.
+	 * First information --> start
+	 */
 	public LogDat() {
 		log = Logger.getLogger("SCIMLogger");
 		FileHandler fh;
@@ -42,6 +46,11 @@ public class LogDat {
 		}
 	}
 
+	/**
+	 * add an log 
+	 * @param message the message writing in the logfile
+	 * @param level defining the level
+	 */
 	public void add(String message, logLevel level) {
 		switch(level){
 		case INFO:
@@ -59,10 +68,18 @@ public class LogDat {
 		}
 	}
 
+	/**
+	 * get current directory
+	 * @return the directory
+	 */
 	public String getDirectory() {
 		return this.directory;
 	}
 
+	/**
+	 * set current directory
+	 * @param dir path to the new directory
+	 */
 	public void setDirectory(String dir) {
 		// try {
 		this.directory = dir;
