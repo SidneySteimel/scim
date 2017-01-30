@@ -10,7 +10,6 @@ import java.util.List;
 public class Storage {
 
 	private final static String mailingListsDirectory = "mailingLists";
-	private final static String icsDiretory = "ics";
 
 	public List<String> getCourses() {
 		File dir = new File(mailingListsDirectory);
@@ -37,7 +36,15 @@ public class Storage {
 				emails.add(line);
 				line = reader.readLine();
 			}
+			reader.close();
 		}
 		return emails;
+	}
+
+	public void deleteCourse(String pCourse) {
+		File file = new File(mailingListsDirectory + "/" + pCourse + ".txt");
+		if (file.isFile()) {
+			file.delete();
+		}
 	}
 }
