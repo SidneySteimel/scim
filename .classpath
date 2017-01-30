@@ -18,5 +18,8 @@
 	<classpathentry kind="lib" path="lib/slf4j-ext-1.7.22.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.22-sources.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.22.jar"/>
+	<classpathentry kind="lib" path="lib/commons-email-1.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-email-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
