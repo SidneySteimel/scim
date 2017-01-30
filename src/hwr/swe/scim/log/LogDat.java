@@ -7,6 +7,11 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * 
+ * @author Thomas
+ *
+ */
 public class LogDat {
 	private Logger log;
 	private String directory = "C:/Temp/";
@@ -37,8 +42,21 @@ public class LogDat {
 		}
 	}
 
-	public void add(String message) {
-		log.info(message);
+	public void add(String message, logLevel level) {
+		switch(level){
+		case INFO:
+			log.info(message);
+		case CONFIG:
+			log.config(message);
+		case L1:
+			log.fine(message);
+		case L2:
+			log.finer(message);
+		case L3:
+			log.finest(message);  
+		default:
+			break;
+		}
 	}
 
 	public String getDirectory() {
@@ -55,9 +73,8 @@ public class LogDat {
 		// }
 	}
 	
-	public void close(String message){
-		log.info(message);
-		log.info("system closed");
+	public void close(){
+			log.info("system closed");
 	}
 
 }
