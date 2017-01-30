@@ -51,7 +51,7 @@ public class LogDat {
 	 * @param message the message writing in the logfile
 	 * @param level defining the level
 	 */
-	public void add(String message, logLevel level) {
+	public void add(String message, LogLevel level) {
 		switch(level){
 		case INFO:
 			log.info(message);

@@ -5,7 +5,7 @@ package hwr.swe.scim.log;
  * @author Thomas
  *
  */
-public enum logLevel {
+public enum LogLevel {
 	INFO,
 	CONFIG,
 	L1,
