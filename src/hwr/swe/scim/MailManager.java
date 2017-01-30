@@ -26,7 +26,7 @@ public class MailManager implements MessageManager {
 	 * @see hwr.swe.scim.MessageManager#giveMessage(java.util.List)
 	 */
 	@Override
-	public boolean giveMessage(List<String> pList) {
+	public boolean giveMessage(List<Lecture> pList) {
 		return sendMail(MAIL_SMTP_SERVER, USERNAME, SENDER, RECEIVER,
 				CHARSET, CONTENT, generateText(pList));
 	}
@@ -70,10 +70,14 @@ public class MailManager implements MessageManager {
 		return true;
 	}
 
-	private String generateText(List<String> pList){
+	private String generateText(List<Lecture> pList){
 		String generatedText = "";
-		for(String entry: pList) {
-			generatedText += entry + "\n";
+		for(Lecture lecture: pList) {
+			if (lecture.getIsCreated()) {
+				generatedText += "\nNeue " + lecture.toString();
+			} else {
+				generatedText += "\nGelöschte " + lecture.toString();
+			}
 		}
 		return generatedText;
 	}
