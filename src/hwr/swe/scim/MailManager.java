@@ -1,6 +1,3 @@
-/**
- * 
- */
 package hwr.swe.scim;
 
 import java.io.BufferedReader;
