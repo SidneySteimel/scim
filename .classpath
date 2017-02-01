@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.5-sources.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="lib/ical4j-2.0.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/ical4j-2.0.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/ical4j-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.22-sources.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.22.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-ext-1.7.22-sources.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-ext-1.7.22.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.22-sources.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.22.jar"/>
+	<classpathentry kind="lib" path="lib/commons-email-1.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/commons-email-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
