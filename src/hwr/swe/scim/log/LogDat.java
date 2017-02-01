@@ -14,7 +14,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class LogDat {
 	private Logger log;
-	private String directory = "C:/Temp/";
+	private static String logFileDirectory = "logFiles";
 
 	/**
 	 * Constructor: build the path and create the logger.
@@ -30,7 +30,7 @@ public class LogDat {
 			DateTimeFormatter time;
 			time = DateTimeFormatter.ofPattern("yyMMddkkmm");
 			name = now.format(time);
-			fh = new FileHandler(directory + name + ".log");
+			fh = new FileHandler(logFileDirectory + name + ".log");
 			// set file handler to logger
 			log.addHandler(fh);
 			// set format
@@ -72,17 +72,17 @@ public class LogDat {
 	 * get current directory
 	 * @return the directory
 	 */
-	public String getDirectory() {
-		return this.directory;
+	public static String getDirectory() {
+		return logFileDirectory;
 	}
 
 	/**
 	 * set current directory
 	 * @param dir path to the new directory
 	 */
-	public void setDirectory(String dir) {
+	public static void setDirectory(String dir) {
 		// try {
-		this.directory = dir;
+		logFileDirectory = dir;
 		// } catch (SecurityException e) {
 		// e.printStackTrace();
 		// } catch (IOException e){

@@ -14,11 +14,10 @@ public class MainProgramm {
 	// private final static String PATH_NEW_FILE_ORIGINAL = "new_file.html";
 
 	// must be our working folder
-	private final static String PATH_OLD_FILE = "test/old_file.html";
-	private final static String PATH_NEW_FILE_COPY = "test/new_file.html";
+	private final static String OLD_FILES_DIRECTORY = "ics";
+	private final static String PATH_NEW_FILE_COPY = "?";
 
 	private static FileComparator comparator = new FileComparator();
-	private static MessageManager mailManager = new WindowManager();
 
 	/**
 	 * This method creates File objects. It copies the new file from a URL into

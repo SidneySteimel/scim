@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Storage {
 
-	private final static String mailingListsDirectory = "mailingLists";
+	private final static String MAILING_LISTS_DIRECTORY = "mailingLists";
 
 	/**
 	 * Returns the names of all files that are in the mailing list directory.
@@ -24,7 +24,7 @@ public class Storage {
 	 * @return a list that contains the file names/ course names as strings
 	 */
 	public List<String> getCourses() {
-		File dir = new File(mailingListsDirectory);
+		File dir = new File(MAILING_LISTS_DIRECTORY);
 		File[] allFiles = dir.listFiles();
 
 		List<String> courses = new ArrayList<String>();
@@ -51,7 +51,7 @@ public class Storage {
 	public List<String> getParticipantsOfCourse(String pCourse) throws IOException {
 		List<String> emails = new ArrayList<String>();
 
-		File mailingList = new File(mailingListsDirectory + "/" + pCourse + ".txt");
+		File mailingList = new File(MAILING_LISTS_DIRECTORY + "/" + pCourse + ".txt");
 		if (mailingList.isFile()) {
 			BufferedReader reader = new BufferedReader(new FileReader(mailingList));
 			String line = reader.readLine();
@@ -73,7 +73,7 @@ public class Storage {
 	 *            file in the mailing list directory
 	 */
 	public void deleteCourse(String pCourse) {
-		File file = new File(mailingListsDirectory + "/" + pCourse + ".txt");
+		File file = new File(MAILING_LISTS_DIRECTORY + "/" + pCourse + ".txt");
 		if (file.isFile()) {
 			file.delete();
 		}
