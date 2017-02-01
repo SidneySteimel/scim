@@ -7,10 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class manages the mailing lists.
+ * 
+ * @author Elen Niedermeyer
+ *
+ */
 public class Storage {
 
 	private final static String MAILING_LISTS_DIRECTORY = "mailingLists";
 
+	/**
+	 * Returns the names of all files that are in the mailing list directory.
+	 * The file names should be the course names.
+	 * 
+	 * @return a list that contains the file names/ course names as strings
+	 */
 	public List<String> getCourses() {
 		File dir = new File(MAILING_LISTS_DIRECTORY);
 		File[] allFiles = dir.listFiles();
@@ -25,6 +37,17 @@ public class Storage {
 		return courses;
 	}
 
+	/**
+	 * Gets all email addresses that are in the mailing list of the given
+	 * course.
+	 * 
+	 * @param pCourse
+	 *            a string that is a course, it should be also the name of a
+	 *            file in the mailing list directory
+	 * @return a list that contains all email addresses in the file as strings
+	 * @throws IOException
+	 *             if the file isn't available or couldn't be read
+	 */
 	public List<String> getParticipantsOfCourse(String pCourse) throws IOException {
 		List<String> emails = new ArrayList<String>();
 
@@ -41,6 +64,14 @@ public class Storage {
 		return emails;
 	}
 
+	/**
+	 * Mailing list should be deleted if the course is in the past. This method
+	 * deletes the mailing list of the given course
+	 * 
+	 * @param pCourse
+	 *            a string that is a course, it should be also the name of a
+	 *            file in the mailing list directory
+	 */
 	public void deleteCourse(String pCourse) {
 		File file = new File(MAILING_LISTS_DIRECTORY + "/" + pCourse + ".txt");
 		if (file.isFile()) {
