@@ -10,11 +10,23 @@ import java.util.List;
 import org.apache.commons.mail.*;
 
 /**
- * @author Sidney
+ * this class contains methods to send an email with information about lectures
+ * javax mail and apache commons mail are used to send this email
+ * 
+ * @author Sidney Steimel
  *
  */
 public class MailManager implements MessageManager {
 
+	/**
+	 * apache commons mail requires some attributes to send an email
+	 * 	1. a smtp server that actually send the mail
+	 * 	2. a user to log in because authentication is required (a password as well)
+	 * 	3. the email adress that shall be named as sender
+	 * 	4. the email adress that the outgoing mail shall be send to
+	 * 	5. the charset that shall be used in the emails text
+	 * 	6. the content of the email
+	 */
 	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; //Port 465
 	private static final String USERNAME = "s_steimel"; 
 	private static final String SENDER = "noReply@hwr-berlin.de";
@@ -22,8 +34,12 @@ public class MailManager implements MessageManager {
 	private static final String CHARSET = "UTF-8";
 	private static final String CONTENT = "Test";
 
-	/* (non-Javadoc)
-	 * @see hwr.swe.scim.MessageManager#giveMessage(java.util.List)
+	/**
+	 * this method is used to provide information to users
+	 * in this case via email
+	 * 
+	 * @return boolean
+	 * 			true if sending was successfull, false otherwise
 	 */
 	@Override
 	public boolean giveMessage(List<Lecture> pList) {
@@ -31,12 +47,33 @@ public class MailManager implements MessageManager {
 				CHARSET, CONTENT, generateText(pList));
 	}
 	
+	/**
+	 * this method sends the email
+	 * first an authenticator gets attached to the email
+	 * the user is prompted for a password (so we dont have to write one into the code)
+	 * then all the required attributes get set to the email
+	 * and after that the mail gets sended
+	 * 
+	 * @param pMailserver 
+	 * 			the mail sending server
+	 * @param pUsername 
+	 * 			the user used for authentication
+	 * @param pAbsender 
+	 * 			named sender
+	 * @param pEmpfaenger
+	 * 			address receiving the mail
+	 * @param pTextCharset
+	 * 			mails charset
+	 * @param pBetreff
+	 * 			content of the email
+	 * @param pText
+	 * 			mail body
+	 * 
+	 * @return boolean
+	 * 			true if successful, false otherwise
+	 */
 	private boolean sendMail(String pMailserver, String pUsername, String pAbsender, String pEmpfaenger,
 			String pTextCharset, String pBetreff, String pText) {
-	/*public static String sendeEmailMitAnhang(...
-			String anhangContentType, InputStream anhangInputStream, String anhangDateiName, String anhangBeschreibung
-			 )
-			{*/
 		String password = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please enter password: ");
@@ -46,7 +83,6 @@ public class MailManager implements MessageManager {
 			System.out.println("reading line failed");
 		}
 		try {
-			//MultiPartEmail email = new org.apache.commons.mail.MultiPartEmail();
 			SimpleEmail email = new org.apache.commons.mail.SimpleEmail();
 			if( pUsername != null && password != null ) {
 				email.setAuthenticator( new org.apache.commons.mail.DefaultAuthenticator( pUsername, password ) );
@@ -58,11 +94,9 @@ public class MailManager implements MessageManager {
 			email.setCharset(  pTextCharset );
 			email.setSubject(  pBetreff     );
 			email.setMsg(      pText        );
-			/*email.attach( new ByteArrayDataSource( anhangInputStream, anhangContentType ),
-			                    anhangDateiName, anhangBeschreibung, EmailAttachment.ATTACHMENT );*/
 			email.send();
 		}
-		catch (/*IOException |*/ EmailException e) {
+		catch (EmailException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			return false;
@@ -70,15 +104,27 @@ public class MailManager implements MessageManager {
 		return true;
 	}
 
+	/**
+	 * generates the email body by iterating over the provided list of lectures
+	 * lectures are treated differently according to their state
+	 * the can either be created newly or have been removed
+	 * 
+	 * @param pList
+	 * 			a list of lectures that were changed in any way
+	 * @return generatedText
+	 * 			the generated email text
+	 */
 	private String generateText(List<Lecture> pList){
 		String generatedText = "";
 		for(Lecture lecture: pList) {
+			
 			if (lecture.getIsCreated()) {
 				generatedText += "\nNeue " + lecture.toString();
 			} else {
-				generatedText += "\nGelï¿½schte " + lecture.toString();
+				generatedText += "\nGelöschte " + lecture.toString();
 			}
 		}
 		return generatedText;
 	}
 }
+
