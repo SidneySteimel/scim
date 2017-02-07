@@ -11,5 +11,5 @@ public interface MessageManager {
 	 *            List<String> that contains the changes.
 	 * @return
 	 */
-	boolean giveMessage(List<Lecture> pList);
+	boolean giveMessage(List<Lecture> pLectureList, List<String> pReceiversList);
 }
