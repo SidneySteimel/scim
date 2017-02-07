@@ -26,11 +26,9 @@ public class MailManager implements MessageManager {
 	 * mail shall be send to 5. the charset that shall be used in the emails
 	 * text 6. the content of the email
 	 */
-	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; // Port
-																				// 465
+	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; // Port 465
 	private static final String USERNAME = "s_steimel";
 	private static final String SENDER = "noReply@hwr-berlin.de";
-	private static final String RECEIVER = "thgaertner.sft@t-online.de";
 	private static final String CHARSET = "UTF-8";
 	private static final String CONTENT = "Test";
 
@@ -38,12 +36,14 @@ public class MailManager implements MessageManager {
 	 * this method is used to provide information to users in this case via
 	 * email
 	 * 
-	 * @return boolean true if sending was successfull, false otherwise
+	 * @throws EmailException 
+	 * 				if message could not be send to users
+	 * @throws IOException 
+	 * 				if password reading failed
 	 */
 	@Override
-	public boolean giveMessage(List<Lecture> pLectureList, List<String> pReceiversList) {
-		return sendMail(MAIL_SMTP_SERVER, USERNAME, SENDER, pReceiversList, CHARSET, CONTENT,
-				generateText(pLectureList));
+	public void giveMessage(List<Lecture> pLectureList, List<String> pReceiversList) throws IOException, EmailException {
+		sendMail(MAIL_SMTP_SERVER, USERNAME, SENDER, pReceiversList, CHARSET, CONTENT, generateText(pLectureList));
 	}
 
 	/**
@@ -67,48 +67,42 @@ public class MailManager implements MessageManager {
 	 * @param pText
 	 *            mail body
 	 * 
-	 * @return boolean true if successful, false otherwise
+	 * @throws IOException
+	 * 				if reading password from commandline fails
+	 * @throws EmailException
+	 * 				if there was a problem sending an email
 	 */
-	private boolean sendMail(String pMailserver, String pUsername, String pAbsender, List<String> pReceiversList,
-			String pTextCharset, String pBetreff, String pText) {
+	private void sendMail(String pMailserver, String pUsername, String pAbsender, List<String> pReceiversList,
+			String pTextCharset, String pBetreff, String pText) throws IOException, EmailException {
 		String password = null;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter password: ");
-		try {
-			password = br.readLine();
-		} catch (IOException e1) {
-			System.out.println("reading line failed");
+
+		password = br.readLine();
+
+		SimpleEmail email = new org.apache.commons.mail.SimpleEmail();
+		if (pUsername != null && password != null) {
+			email.setAuthenticator(new org.apache.commons.mail.DefaultAuthenticator(pUsername, password));
+			email.setSSLOnConnect(true);
 		}
+		email.setHostName(pMailserver);
+		email.setFrom(pAbsender);
 
-		try {
-			SimpleEmail email = new org.apache.commons.mail.SimpleEmail();
-			if (pUsername != null && password != null) {
-				email.setAuthenticator(new org.apache.commons.mail.DefaultAuthenticator(pUsername, password));
-				email.setSSLOnConnect(true);
-			}
-			email.setHostName(pMailserver);
-			email.setFrom(pAbsender);
-
-			for (String Empfaenger : pReceiversList) {
-				email.addTo(Empfaenger);
-			}
-			email.setCharset(pTextCharset);
-			email.setSubject(pBetreff);
-			email.setMsg(pText);
-
-			email.send();
-		} catch (EmailException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			return false;
+		for (String Empfaenger : pReceiversList) {
+			email.addTo(Empfaenger);
 		}
-		return true;
+		
+		email.setCharset(pTextCharset);
+		email.setSubject(pBetreff);
+		email.setMsg(pText);
+
+		email.send();
 	}
 
 	/**
-	 * generates the email body by iterating over the provided list of lectures
+	 * generates the email body by iterating over the provided list of lectures.
 	 * lectures are treated differently according to their state the can either
-	 * be created newly or have been removed
+	 * be 'created' or 'removed'
 	 * 
 	 * @param pList
 	 *            a list of lectures that were changed in any way
