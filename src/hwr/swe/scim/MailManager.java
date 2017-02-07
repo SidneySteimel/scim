@@ -15,7 +15,6 @@ public class MailManager implements MessageManager {
 	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; //Port 465
 	private static final String USERNAME = "s_steimel"; 
 	private static final String SENDER = "noReply@hwr-berlin.de";
-	private static final String RECEIVER = "thgaertner.sft@t-online.de";
 	private static final String CHARSET = "UTF-8";
 	private static final String CONTENT = "Test";
 
@@ -23,12 +22,12 @@ public class MailManager implements MessageManager {
 	 * @see hwr.swe.scim.MessageManager#giveMessage(java.util.List)
 	 */
 	@Override
-	public boolean giveMessage(List<Lecture> pList) {
-		return sendMail(MAIL_SMTP_SERVER, USERNAME, SENDER, RECEIVER,
+	public boolean giveMessage(List<Lecture> pList, List<String> pReceiver) {
+		return sendMail(MAIL_SMTP_SERVER, USERNAME, SENDER, pReceiver,
 				CHARSET, CONTENT, generateText(pList));
 	}
 	
-	private boolean sendMail(String pMailserver, String pUsername, String pAbsender, String pEmpfaenger,
+	private boolean sendMail(String pMailserver, String pUsername, String pAbsender, List<String> pEmpfaenger,
 			String pTextCharset, String pBetreff, String pText) {
 	/*public static String sendeEmailMitAnhang(...
 			String anhangContentType, InputStream anhangInputStream, String anhangDateiName, String anhangBeschreibung
@@ -51,7 +50,9 @@ public class MailManager implements MessageManager {
 			}
 			email.setHostName( pMailserver  );
 			email.setFrom(     pAbsender    );
-			email.addTo(       pEmpfaenger  );
+			for (String string : pEmpfaenger) {
+				email.addTo(       string  );
+			}
 			email.setCharset(  pTextCharset );
 			email.setSubject(  pBetreff     );
 			email.setMsg(      pText        );
@@ -73,7 +74,7 @@ public class MailManager implements MessageManager {
 			if (lecture.getIsCreated()) {
 				generatedText += "\nNeue " + lecture.toString();
 			} else {
-				generatedText += "\nGel�schte " + lecture.toString();
+				generatedText += "\nGeloeschte " + lecture.toString();
 			}
 		}
 		return generatedText;

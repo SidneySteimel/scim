@@ -31,7 +31,10 @@ public class Storage {
 
 		for (File file : allFiles) {
 			if (file.isFile()) {
-				courses.add(file.getName());
+				String fileName=file.getName();
+				int lastDot = fileName.lastIndexOf(".");
+				String course = fileName.substring(0, lastDot);
+				courses.add(course);
 			}
 		}
 		return courses;

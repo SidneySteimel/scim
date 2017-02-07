@@ -44,13 +44,24 @@ public class FileComparator {
 		List<Component> oldEvents = icsManager.getRelevantEvents(pOldFile);
 		List<Component> newEvents = icsManager.getRelevantEvents(pNewFile);
 
-		List<Lecture> changes = new LinkedList<Lecture>();
+		if (oldEvents == null || newEvents == null) {
+			return null;
+		} else {
+			List<Lecture> changes = new LinkedList<Lecture>();
 
-		getDeletedEvents(oldEvents, newEvents, changes);
+			List<Lecture> deletedChanges = getDeletedEvents(oldEvents, newEvents);
 
-		getAddedEvents(oldEvents, newEvents, changes);
+			List<Lecture> addedChanges = getAddedEvents(oldEvents, newEvents);
+			
+			if(!deletedChanges.isEmpty()){
+				changes.addAll(deletedChanges);
+			}
+			if(!addedChanges.isEmpty()){
+				changes.addAll(addedChanges);
+			}
 
-		return changes;
+			return changes;
+		}
 	}
 
 	/**
@@ -61,13 +72,12 @@ public class FileComparator {
 	 *            old list with events
 	 * @param pNewEvents
 	 *            new list with events
-	 * @param pResult
-	 *            list which should contain the added events
+	 * @return a list with all added events
 	 * @throws ParseException
 	 *             if there's a problem getting the dates
 	 */
-	private void getAddedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
-			throws ParseException {
+	private List<Lecture> getAddedEvents(List<Component> pOldEvents, List<Component> pNewEvents) throws ParseException {
+		List<Lecture> result = new LinkedList<Lecture>();
 		Iterator<Component> iteratorNewEvents = pNewEvents.iterator();
 		while (iteratorNewEvents.hasNext()) {
 			Component component = iteratorNewEvents.next();
@@ -77,9 +87,10 @@ public class FileComparator {
 				addedLecture.setStartTime(icsManager.getStartTime(component));
 				addedLecture.setEndTime(icsManager.getEndTime(component));
 				addedLecture.setIsCreated(true);
-				pResult.add(addedLecture);
+				result.add(addedLecture);
 			}
 		}
+		return result;
 	}
 
 	/**
@@ -90,13 +101,13 @@ public class FileComparator {
 	 *            old list with events
 	 * @param pNewEvents
 	 *            new list with events
-	 * @param pResult
-	 *            list which should contain the deleted events
+	 * @return a list with all deleted events
 	 * @throws ParseException
 	 *             if there's a problem getting the dates
 	 */
-	private void getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
+	private List<Lecture> getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents)
 			throws ParseException {
+		List<Lecture> result = new LinkedList<Lecture>();
 		Iterator<Component> iteratorOldEvents = pOldEvents.iterator();
 		while (iteratorOldEvents.hasNext()) {
 			Component component = iteratorOldEvents.next();
@@ -106,8 +117,9 @@ public class FileComparator {
 				deletedLecture.setStartTime(icsManager.getStartTime(component));
 				deletedLecture.setEndTime(icsManager.getEndTime(component));
 				deletedLecture.setIsCreated(false);
-				pResult.add(deletedLecture);
+				result.add(deletedLecture);
 			}
 		}
+		return result;
 	}
 }

@@ -2,52 +2,88 @@ package hwr.swe.scim;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+import hwr.swe.scim.log.LogDat;
+import hwr.swe.scim.log.LogLevel;
 
 public class MainProgramm {
 
-	// must be the intranet address
-	// private final static String PATH_NEW_FILE_ORIGINAL = "new_file.html";
-
-	// must be our working folder
 	private final static String OLD_FILES_DIRECTORY = "ics";
-	private final static String PATH_NEW_FILE_COPY = "?";
+	private final static String NEW_FILES_DIRECTORY = "";
+	private final static String LOG_FILES = "logFiles/";
 
 	private static FileComparator comparator = new FileComparator();
+	private static Storage storage = new Storage();
+
+	private static LogDat log = new LogDat(LOG_FILES);
 
 	/**
-	 * This method creates File objects. It copies the new file from a URL into
-	 * our directory. The FileComparator compares the files and adds changes to
-	 * a list. If there's a change, a mail would be sent (opens a window in
-	 * prototype). Then it replaces the old file with the new file.
+	 * This is our main method.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// create File objects
-		// File newFileOriginal = new File(PATH_NEW_FILE_ORIGINAL);
-		File newFileCopy = new File(PATH_NEW_FILE_COPY);
-		File oldFile = new File(PATH_OLD_FILE);
 
-		try {
-			// copy new file
-			// Files.copy(newFileOriginal.toPath(), newFileCopy.toPath());
-			FileUtils.copyURLToFile(
-					new URL("http://moodle.hwr-berlin.de/fb2-stundenplan/download.php?doctype=.html&url=./fb2-stundenplaene/informatik/semester3/kurs"),
-					newFileCopy);
+		// get all courses in a list
+		List<String> courses = storage.getCourses();
+		log.add("Success: Get courses.", LogLevel.INFO);
 
-			// give a message, if there's a change
-			
+		for (String course : courses) {
+			// first field = course name, second field = semester[, third field
+			// = course number]
+			String[] courseArray = course.split("_");
+			String oldFilePath = OLD_FILES_DIRECTORY + "/" + course + ".ics";
+			String newFilePath = NEW_FILES_DIRECTORY + "stundenplan_" + course + ".ics";
 
-			// replace the old file with the new one
-			replaceOldFile(newFileCopy, oldFile);
-		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				List<Lecture> changes = comparator.getChanges(oldFilePath, newFilePath);
+				log.add("Success: Compared files for course " + course, LogLevel.INFO);
+
+				if (changes == null) {
+					storage.deleteCourse(course);
+					log.add("Course " + course + " was deleted", LogLevel.INFO);
+				} else if (!changes.isEmpty()) {
+					sendMail(course, changes);
+					log.add("Success: Mails for course " + course + " sent", LogLevel.INFO);
+				} else if (changes.isEmpty()) {
+					log.add("No changes found for course " + course, LogLevel.INFO);
+				}
+				replaceOldFile(new File(newFilePath), new File(oldFilePath));
+				log.add("Success: Procedure terminated for course " + course, LogLevel.INFO);
+			} catch (Exception e) {
+				log.add("Exception " + e.getMessage(), LogLevel.L1);
+				e.printStackTrace();
+			}
 		}
+		deleteOldLogFiles();
+
+		log.add("Success: Everything terminated for today", LogLevel.INFO);
+	}
+
+	private static void deleteOldLogFiles() {
+		File dir = new File(log.getDirectory());
+		File[] allFiles = dir.listFiles();
+
+		for (File file : allFiles) {
+			long modified = file.lastModified();
+			long now = Instant.now().toEpochMilli();
+			long twoWeeksInMillis = 1209600000;
+			long twoWeeksAgo = now - twoWeeksInMillis;
+			if (modified < twoWeeksAgo) {
+				file.delete();
+			}
+		}
+	}
+
+	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException {
+		List<String> receivers = storage.getParticipantsOfCourse(pCourse);
+		MessageManager mails = new MailManager();
+		mails.giveMessage(pChanges, receivers);
 	}
 
 	/**
@@ -60,8 +96,10 @@ public class MainProgramm {
 	 * @throws IOException
 	 */
 	private static void replaceOldFile(File pNewFile, File pOldFile) throws IOException {
+		Path from = pNewFile.toPath();
+		Path to = pOldFile.toPath();
+		Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
 		Files.delete(pOldFile.toPath());
-		pNewFile.renameTo(pOldFile);
 	}
 
 }

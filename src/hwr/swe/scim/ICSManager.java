@@ -71,8 +71,8 @@ public class ICSManager {
 	 */
 	public String getEventName(Component pEvent) {
 		String summary = pEvent.getProperty(Property.SUMMARY).getValue();
-		String[] strings = summary.split("\\;");
-		return strings[2];
+		String[] strings = summary.split(";");
+		return strings[1];
 	}
 
 	/**

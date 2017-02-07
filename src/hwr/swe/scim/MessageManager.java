@@ -1,4 +1,4 @@
-package hwr.swe.scim;
+ package hwr.swe.scim;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ public interface MessageManager {
 	 * 
 	 * @param pList
 	 *            List<String> that contains the changes.
+	 *            List<Receiver>
 	 * @return
 	 */
-	boolean giveMessage(List<Lecture> pList);
+	boolean giveMessage(List<Lecture> pList, List<String> pReceiver);
 }
