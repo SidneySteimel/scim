@@ -48,12 +48,12 @@ public class MainProgramm {
 					// there are no current events
 					storage.deleteCourse(course);
 					log.add("Course " + course + " was deleted", LogLevel.INFO);
-				} else if (!changes.isEmpty()) {
-					sendMail(course, changes);
-					log.add("Success: Mails for course " + course + " sent", LogLevel.INFO);
 				} else if (changes.isEmpty()) {
 					// there are no changes
 					log.add("No changes found for course " + course, LogLevel.INFO);
+				} else if (!changes.isEmpty()) {
+					sendMail(course, changes);
+					log.add("Success: Mails for course " + course + " sent", LogLevel.INFO);
 				}
 				replaceOldFile(new File(newFilePath), new File(oldFilePath));
 				log.add("Success: Procedure terminated for course " + course, LogLevel.INFO);
@@ -67,6 +67,9 @@ public class MainProgramm {
 		log.add("Success: Everything terminated for today", LogLevel.INFO);
 	}
 
+	/**
+	 * Deletes old log files that are older than two weeks.
+	 */
 	private static void deleteOldLogFiles() {
 		File dir = new File(log.getDirectory());
 		File[] allFiles = dir.listFiles();
@@ -82,6 +85,15 @@ public class MainProgramm {
 		}
 	}
 
+	/**
+	 * Sends a mail with changes in the schedule.
+	 * 
+	 * @param pCourse
+	 *            course of which we have changes
+	 * @param pChanges
+	 *            list of changes in the course's schedule
+	 * @throws IOException
+	 */
 	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException {
 		List<String> receivers = storage.getParticipantsOfCourse(pCourse);
 		MessageManager mails = new MailManager();

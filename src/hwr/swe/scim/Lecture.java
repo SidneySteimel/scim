@@ -72,8 +72,8 @@ public class Lecture {
 	}
 
 	/**
-	 * Returns a string that descripes the lecture in a readable string. It's a
-	 * german string.
+	 * Returns a string that describes the lecture in a readable string. It's a
+	 * German string.
 	 */
 	@Override
 	public String toString() {

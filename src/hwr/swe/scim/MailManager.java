@@ -14,9 +14,9 @@ public class MailManager implements MessageManager {
 
 	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; //Port 465
 	private static final String USERNAME = "s_steimel"; 
-	private static final String SENDER = "noReply@hwr-berlin.de";
+	private static final String SENDER = "scim@hwr-berlin.de";
 	private static final String CHARSET = "UTF-8";
-	private static final String CONTENT = "Test";
+	private static final String CONTENT = "Stundenplanänderung";
 
 	/* (non-Javadoc)
 	 * @see hwr.swe.scim.MessageManager#giveMessage(java.util.List)
