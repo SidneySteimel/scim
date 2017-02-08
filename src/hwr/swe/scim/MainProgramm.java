@@ -45,12 +45,14 @@ public class MainProgramm {
 				log.add("Success: Compared files for course " + course, LogLevel.INFO);
 
 				if (changes == null) {
+					// there are no current events
 					storage.deleteCourse(course);
 					log.add("Course " + course + " was deleted", LogLevel.INFO);
 				} else if (!changes.isEmpty()) {
 					sendMail(course, changes);
 					log.add("Success: Mails for course " + course + " sent", LogLevel.INFO);
 				} else if (changes.isEmpty()) {
+					// there are no changes
 					log.add("No changes found for course " + course, LogLevel.INFO);
 				}
 				replaceOldFile(new File(newFilePath), new File(oldFilePath));
