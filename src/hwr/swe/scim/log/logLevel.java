@@ -6,6 +6,7 @@ package hwr.swe.scim.log;
  *
  */
 public enum logLevel {
+	ERR,
 	INFO,
 	CONFIG,
 	L1,

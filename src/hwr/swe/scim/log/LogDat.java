@@ -1,6 +1,8 @@
 package hwr.swe.scim.log;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.FileHandler;
@@ -53,20 +55,48 @@ public class LogDat {
 	 */
 	public void add(String message, logLevel level) {
 		switch(level){
+		case ERR:
+			log.info(message);
+			break;
 		case INFO:
 			log.info(message);
+			break;
 		case CONFIG:
 			log.config(message);
+			break;
 		case L1:
 			log.fine(message);
+			break;
 		case L2:
 			log.finer(message);
+			break;
 		case L3:
-			log.finest(message);  
+			log.finest(message);
+			break;
 		default:
 			break;
 		}
 	}
+	/**
+	 * 
+	 * @param message Expect an
+	 * @param e
+	 * @param level
+	 */
+	public void add(String message, Exception e, logLevel level){
+		switch (level){
+		case ERR:
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
+			log.info("EXCEPTION: " + message +"\n"+ e.getMessage()+ "\n print Stacktrace: "+ sw.toString());
+			break;
+		default:
+			break;
+		}
+		
+		
+	}
+	
 
 	/**
 	 * get current directory
