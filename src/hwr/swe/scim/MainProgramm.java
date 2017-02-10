@@ -8,6 +8,8 @@ import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import hwr.swe.scim.log.LogDat;
 import hwr.swe.scim.log.LogLevel;
 
@@ -59,7 +61,6 @@ public class MainProgramm {
 				log.add("Success: Procedure terminated for course " + course, LogLevel.INFO);
 			} catch (Exception e) {
 				log.add("Exception " + e.getMessage(), LogLevel.L1);
-				e.printStackTrace();
 			}
 		}
 		deleteOldLogFiles();
@@ -97,7 +98,11 @@ public class MainProgramm {
 	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException {
 		List<String> receivers = storage.getParticipantsOfCourse(pCourse);
 		MessageManager mails = new MailManager();
-		mails.giveMessage(pChanges, receivers);
+		try {
+			mails.giveMessage(pChanges, receivers);
+		} catch (EmailException e) {
+			log.add("Exception " + e.getMessage(), LogLevel.L1);
+		}
 	}
 
 	/**
