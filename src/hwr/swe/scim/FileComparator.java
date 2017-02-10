@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.Component;
 
 /**
  * This class compares two ics files.
@@ -41,16 +40,27 @@ public class FileComparator {
 	 */
 	public List<Lecture> getChanges(String pOldFile, String pNewFile)
 			throws IOException, ParserException, ParseException {
-		List<Component> oldEvents = icsManager.getRelevantEvents(pOldFile);
-		List<Component> newEvents = icsManager.getRelevantEvents(pNewFile);
+		List<Lecture> oldEvents = icsManager.getRelevantEvents(pOldFile);
+		List<Lecture> newEvents = icsManager.getRelevantEvents(pNewFile);
 
-		List<Lecture> changes = new LinkedList<Lecture>();
+		if (oldEvents == null || newEvents == null) {
+			return null;
+		} else {
+			List<Lecture> changes = new LinkedList<Lecture>();
 
-		getDeletedEvents(oldEvents, newEvents, changes);
+			List<Lecture> deletedChanges = getDeletedEvents(oldEvents, newEvents);
 
-		getAddedEvents(oldEvents, newEvents, changes);
+			List<Lecture> addedChanges = getAddedEvents(oldEvents, newEvents);
 
-		return changes;
+			if (!deletedChanges.isEmpty()) {
+				changes.addAll(deletedChanges);
+			}
+			if (!addedChanges.isEmpty()) {
+				changes.addAll(addedChanges);
+			}
+
+			return changes;
+		}
 	}
 
 	/**
@@ -58,28 +68,22 @@ public class FileComparator {
 	 * new events isn't part of the old list, it must be added.
 	 * 
 	 * @param pOldEvents
-	 *            old list with events
+	 *            list with old events
 	 * @param pNewEvents
-	 *            new list with events
-	 * @param pResult
-	 *            list which should contain the added events
-	 * @throws ParseException
-	 *             if there's a problem getting the dates
+	 *            list with new events
+	 * @return a list with all added events
 	 */
-	private void getAddedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
-			throws ParseException {
-		Iterator<Component> iteratorNewEvents = pNewEvents.iterator();
+	private List<Lecture> getAddedEvents(List<Lecture> pOldEvents, List<Lecture> pNewEvents) {
+		List<Lecture> result = new LinkedList<Lecture>();
+		Iterator<Lecture> iteratorNewEvents = pNewEvents.iterator();
 		while (iteratorNewEvents.hasNext()) {
-			Component component = iteratorNewEvents.next();
-			if (!pOldEvents.contains(component)) {
-				Lecture addedLecture = new Lecture();
-				addedLecture.setName(icsManager.getEventName(component));
-				addedLecture.setStartTime(icsManager.getStartTime(component));
-				addedLecture.setEndTime(icsManager.getEndTime(component));
-				addedLecture.setIsCreated(true);
-				pResult.add(addedLecture);
+			Lecture lecture = iteratorNewEvents.next();
+			if (!pOldEvents.contains(lecture)) {
+				lecture.setIsCreated(true);
+				result.add(lecture);
 			}
 		}
+		return result;
 	}
 
 	/**
@@ -90,24 +94,18 @@ public class FileComparator {
 	 *            old list with events
 	 * @param pNewEvents
 	 *            new list with events
-	 * @param pResult
-	 *            list which should contain the deleted events
-	 * @throws ParseException
-	 *             if there's a problem getting the dates
+	 * @return a list with all deleted events
 	 */
-	private void getDeletedEvents(List<Component> pOldEvents, List<Component> pNewEvents, List<Lecture> pResult)
-			throws ParseException {
-		Iterator<Component> iteratorOldEvents = pOldEvents.iterator();
+	private List<Lecture> getDeletedEvents(List<Lecture> pOldEvents, List<Lecture> pNewEvents) {
+		List<Lecture> result = new LinkedList<Lecture>();
+		Iterator<Lecture> iteratorOldEvents = pOldEvents.iterator();
 		while (iteratorOldEvents.hasNext()) {
-			Component component = iteratorOldEvents.next();
-			if (!pNewEvents.contains(component)) {
-				Lecture deletedLecture = new Lecture();
-				deletedLecture.setName(icsManager.getEventName(component));
-				deletedLecture.setStartTime(icsManager.getStartTime(component));
-				deletedLecture.setEndTime(icsManager.getEndTime(component));
-				deletedLecture.setIsCreated(false);
-				pResult.add(deletedLecture);
+			Lecture lecture = iteratorOldEvents.next();
+			if (!pNewEvents.contains(lecture)) {
+				lecture.setIsCreated(false);
+				result.add(lecture);
 			}
 		}
+		return result;
 	}
 }

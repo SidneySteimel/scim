@@ -21,5 +21,11 @@
 	<classpathentry kind="lib" path="lib/commons-email-1.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/commons-email-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2-api-2.7.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2-api-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.7.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -25,9 +25,9 @@ public class MailManager implements MessageManager {
 	 */
 	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; // Port 465
 	private static final String USERNAME = "s_steimel";
-	private static final String SENDER = "noReply@hwr-berlin.de";
+	private static final String SENDER = "scim@hwr-berlin.de";
 	private static final String CHARSET = "UTF-8";
-	private static final String CONTENT = "Test";
+	private static final String CONTENT = "StundenplanÃ¤nderung";
 
 	/**
 	 * this method is used to provide information to users in this case via
@@ -112,7 +112,7 @@ public class MailManager implements MessageManager {
 			if (lecture.getIsCreated()) {
 				generatedText += "\nNeue " + lecture.toString();
 			} else {
-				generatedText += "\nGelöschte " + lecture.toString();
+				generatedText += "\nGeloeschte " + lecture.toString();
 			}
 		}
 		return generatedText;

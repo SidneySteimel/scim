@@ -1,4 +1,4 @@
-package hwr.swe.scim;
+ package hwr.swe.scim;
 
 import java.io.IOException;
 import java.util.List;

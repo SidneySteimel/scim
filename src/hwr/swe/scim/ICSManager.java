@@ -39,8 +39,8 @@ public class ICSManager {
 	 * 
 	 * @param pIcsPath
 	 *            path to the ics file
-	 * @return a list that contains all relevant elements or null if the list is
-	 *         empty
+	 * @return a list that contains all relevant elements converted to lectures
+	 *         or null if the list is empty
 	 * 
 	 * @throws IOException
 	 *             if the file doesn't exists
@@ -51,62 +51,14 @@ public class ICSManager {
 	 *             if there's a failure while parsing the date of events
 	 * 
 	 */
-	public List<Component> getRelevantEvents(String pIcsPath) throws IOException, ParserException, ParseException {
+	public List<Lecture> getRelevantEvents(String pIcsPath) throws IOException, ParserException, ParseException {
 		parseICS(pIcsPath);
 		List<Component> relevantEvents = removePastEvents(getAllEvents());
 		if (relevantEvents.isEmpty()) {
 			return null;
 		} else {
-			return relevantEvents;
+			return convertEventsToLectures(relevantEvents);
 		}
-	}
-
-	/**
-	 * Public method that returns the name of a given event. It parses it and
-	 * returns only the event's name.
-	 * 
-	 * @param pEvent
-	 *            calendar component which's summary you want to know
-	 * @return the summary as string
-	 */
-	public String getEventName(Component pEvent) {
-		String summary = pEvent.getProperty(Property.SUMMARY).getValue();
-		String[] strings = summary.split("\\;");
-		return strings[2];
-	}
-
-	/**
-	 * Public method that returns the start time of a given event.
-	 * 
-	 * @param pEvent
-	 *            calendar component which's start time you want to know
-	 * @return the start time as an date object
-	 * @throws ParseException
-	 *             if there's a failure while parsing the date
-	 */
-	public Date getStartTime(Component pEvent) throws ParseException {
-		// get the start time and parse it to a date object
-		String startTime = pEvent.getProperty(Property.DTSTART).getValue();
-		Date startDate = null;
-		startDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(startTime);
-		return startDate;
-	}
-
-	/**
-	 * Public method that returns the end time of a given event.
-	 * 
-	 * @param pEvent
-	 *            calendar component which's end time you want to know
-	 * @return the end time as an date object
-	 * @throws ParseException
-	 *             if there's a failure while parsing the date
-	 */
-	public Date getEndTime(Component pEvent) throws ParseException {
-		// get the end time and parse it to a date object{
-		String endTime = pEvent.getProperty(Property.DTEND).getValue();
-		Date endDate = null;
-		endDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(endTime);
-		return endDate;
 	}
 
 	/**
@@ -170,5 +122,75 @@ public class ICSManager {
 			}
 		}
 		return pEvents;
+	}
+
+	/**
+	 * This method converts a list of components to a list of lectures. Lectures
+	 * contains only the name, start time and end time of the component.
+	 * 
+	 * @param pEvents
+	 *            list of components
+	 * @return a list of lectures converted of the given list
+	 * @throws ParseException
+	 *             if there's a problem with parsing the dates
+	 */
+	private List<Lecture> convertEventsToLectures(List<Component> pEvents) throws ParseException {
+		List<Lecture> lectures = new LinkedList<Lecture>();
+		for (Component component : pEvents) {
+			Lecture newLecture = new Lecture();
+			newLecture.setName(getEventName(component));
+			newLecture.setStartTime(getStartTime(component));
+			newLecture.setEndTime(getEndTime(component));
+			lectures.add(newLecture);
+		}
+		return lectures;
+	}
+
+	/**
+	 * Method that returns the name of a given event. It parses it and returns
+	 * only the event's name.
+	 * 
+	 * @param pEvent
+	 *            calendar component which's summary you want to know
+	 * @return the summary as string
+	 */
+	private String getEventName(Component pEvent) {
+		String summary = pEvent.getProperty(Property.SUMMARY).getValue();
+		String[] strings = summary.split(";");
+		return strings[1];
+	}
+
+	/**
+	 * Method that returns the start time of a given event.
+	 * 
+	 * @param pEvent
+	 *            calendar component which's start time you want to know
+	 * @return the start time as an date object
+	 * @throws ParseException
+	 *             if there's a failure while parsing the date
+	 */
+	private Date getStartTime(Component pEvent) throws ParseException {
+		// get the start time and parse it to a date object
+		String startTime = pEvent.getProperty(Property.DTSTART).getValue();
+		Date startDate = null;
+		startDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(startTime);
+		return startDate;
+	}
+
+	/**
+	 * Method that returns the end time of a given event.
+	 * 
+	 * @param pEvent
+	 *            calendar component which's end time you want to know
+	 * @return the end time as an date object
+	 * @throws ParseException
+	 *             if there's a failure while parsing the date
+	 */
+	private Date getEndTime(Component pEvent) throws ParseException {
+		// get the end time and parse it to a date object{
+		String endTime = pEvent.getProperty(Property.DTEND).getValue();
+		Date endDate = null;
+		endDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(endTime);
+		return endDate;
 	}
 }
