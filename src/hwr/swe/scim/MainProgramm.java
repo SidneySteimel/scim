@@ -113,7 +113,6 @@ public class MainProgramm {
 		Path from = pNewFile.toPath();
 		Path to = pOldFile.toPath();
 		Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-		Files.delete(pOldFile.toPath());
 	}
 
 }
