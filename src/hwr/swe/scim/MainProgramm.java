@@ -12,6 +12,7 @@ import org.apache.commons.mail.EmailException;
 
 import hwr.swe.scim.log.LogDat;
 import hwr.swe.scim.log.LogLevel;
+import hwr.swe.scim.file.*;
 
 public class MainProgramm {
 

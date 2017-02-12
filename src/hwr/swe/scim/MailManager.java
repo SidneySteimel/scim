@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import org.apache.commons.mail.*;
+
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
+import hwr.swe.scim.file.Lecture;
 
 /**
  * this class contains methods to send an email with information about lectures

@@ -1,4 +1,4 @@
-package hwr.swe.scim;
+package hwr.swe.scim.file;
 
 import java.io.FileInputStream;
 import java.io.IOException;
