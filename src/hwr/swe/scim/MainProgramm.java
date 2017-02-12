@@ -60,12 +60,15 @@ public class MainProgramm {
 				replaceOldFile(new File(newFilePath), new File(oldFilePath));
 				log.add("Success: Procedure terminated for course " + course, LogLevel.INFO);
 			} catch (Exception e) {
-				log.add("Exception " + e.getMessage(), LogLevel.L1);
+				log.add("Exception: " + e.getMessage(), LogLevel.ERR);
 			}
 		}
 		deleteOldLogFiles();
 
 		log.add("Success: Everything terminated for today", LogLevel.INFO);
+		
+		//close the logger
+		log.close();
 	}
 
 	/**
@@ -94,15 +97,12 @@ public class MainProgramm {
 	 * @param pChanges
 	 *            list of changes in the course's schedule
 	 * @throws IOException
+	 * @throws EmailException 
 	 */
-	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException {
+	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException, EmailException {
 		List<String> receivers = storage.getParticipantsOfCourse(pCourse);
 		MessageManager mails = new MailManager();
-		try {
-			mails.giveMessage(pChanges, receivers);
-		} catch (EmailException e) {
-			log.add("Exception " + e.getMessage(), LogLevel.L1);
-		}
+		mails.giveMessage(pChanges, receivers);
 	}
 
 	/**

@@ -81,7 +81,7 @@ public class Lecture {
 	}
 
 	/**
-	 * Getetr if the end time.
+	 * Getter if the end time.
 	 * 
 	 * @return the end time of the lecture
 	 */

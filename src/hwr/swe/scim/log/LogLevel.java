@@ -1,14 +1,11 @@
 package hwr.swe.scim.log;
 
 /**
- * logLevel defines the level from LogData.
- * @author Thomas
+ * LogLevel defines the level from LogData.
+ * 
+ * @author Thomas Gaertner
  *
  */
 public enum LogLevel {
-	INFO,
-	CONFIG,
-	L1,
-	L2,
-	L3;
+	ERR, INFO, CONFIG;
 }

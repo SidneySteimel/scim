@@ -1,6 +1,8 @@
 package hwr.swe.scim.log;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.FileHandler;
@@ -8,8 +10,10 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * This class is dealing with the logger.
- * The logfiles are at a logFiles directory and are named with date as yyMMddkkmm. It is possible to add messages in 5 different Levels from ENUM logLevel. 
+ * This class is dealing with the logger. The logfiles are at a logFiles
+ * directory and are named with date as yyMMddkkmm. It is possible to add
+ * messages in 5 different Levels from ENUM logLevel.
+ * 
  * @author Thomas Gaertner
  */
 public class LogDat {
@@ -17,8 +21,8 @@ public class LogDat {
 	private String logFileDirectory = "logFiles";
 
 	/**
-	 * Constructor: build the path and create the logger.
-	 * First information --> start
+	 * Constructor: build the path and create the logger. First information -->
+	 * start
 	 */
 	public LogDat(String dir) {
 		setDirectory(dir);
@@ -48,26 +52,23 @@ public class LogDat {
 	}
 
 	/**
-	 * add an log 
-	 * @param message the message writing in the logfile
-	 * @param level defining the level
+	 * add an log
+	 * 
+	 * @param message
+	 *            the message writing in the log file
+	 * @param level
+	 *            defining the level
 	 */
 	public void add(String message, LogLevel level) {
-		switch(level){
+		switch (level) {
+		case ERR:
+			log.info(message);
+			break;
 		case INFO:
 			log.info(message);
 			break;
 		case CONFIG:
 			log.config(message);
-			break;
-		case L1:
-			log.fine(message);
-			break;
-		case L2:
-			log.finer(message);
-			break;
-		case L3:
-			log.finest(message);  
 			break;
 		default:
 			break;
@@ -75,7 +76,29 @@ public class LogDat {
 	}
 
 	/**
+	 * Logs an exception
+	 * 
+	 * @param message
+	 * @param e
+	 *            an exception which's message and stacktrace are printed
+	 * @param level
+	 */
+	public void add(String message, Exception e, LogLevel level) {
+		switch (level) {
+		case ERR:
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
+			log.info("EXCEPTION: " + message + "\n" + e.getMessage() + "\n print Stacktrace: " + sw.toString());
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	/**
 	 * get current directory
+	 * 
 	 * @return the directory
 	 */
 	public String getDirectory() {
@@ -84,20 +107,20 @@ public class LogDat {
 
 	/**
 	 * set current directory
-	 * @param dir path to the new directory
+	 * 
+	 * @param dir
+	 *            path to the new directory
 	 */
 	public void setDirectory(String dir) {
-		// try {
 		logFileDirectory = dir;
-		// } catch (SecurityException e) {
-		// e.printStackTrace();
-		// } catch (IOException e){
-		// e.printStackTrace();
-		// }
+
 	}
-	
-	public void close(){
-			log.info("system closed");
+
+	/**
+	 * Closes the logger.
+	 */
+	public void close() {
+		log.info("system closed");
 	}
 
 }
