@@ -31,7 +31,7 @@ public class MailManager implements MessageManager {
 	private static final String USERNAME = "s_steimel";
 	private static final String SENDER = "scim@hwr-berlin.de";
 	private static final String CHARSET = "UTF-8";
-	private static final String CONTENT = "Stundenplanänderung";
+	private static final String CONTENT = "Stundenplanaenderung";
 
 	/**
 	 * this method is used to provide information to users in this case via
