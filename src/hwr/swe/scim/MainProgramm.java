@@ -8,6 +8,8 @@ import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
+
 import hwr.swe.scim.log.LogDat;
 import hwr.swe.scim.log.LogLevel;
 
@@ -93,8 +95,9 @@ public class MainProgramm {
 	 * @param pChanges
 	 *            list of changes in the course's schedule
 	 * @throws IOException
+	 * @throws EmailException 
 	 */
-	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException {
+	private static void sendMail(String pCourse, List<Lecture> pChanges) throws IOException, EmailException {
 		List<String> receivers = storage.getParticipantsOfCourse(pCourse);
 		MessageManager mails = new MailManager();
 		mails.giveMessage(pChanges, receivers);
