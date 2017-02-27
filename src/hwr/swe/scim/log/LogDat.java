@@ -33,7 +33,7 @@ public class LogDat {
 			String name = new String();
 			LocalDateTime now = LocalDateTime.now();
 			DateTimeFormatter time;
-			time = DateTimeFormatter.ofPattern("yyMMddkkmm");
+			time = DateTimeFormatter.ofPattern("yyyy_MM_dd_kkmm");
 			name = now.format(time);
 			fh = new FileHandler(logFileDirectory + name + ".log");
 			// set file handler to logger
