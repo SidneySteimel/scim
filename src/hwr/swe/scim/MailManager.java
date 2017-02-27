@@ -31,7 +31,7 @@ public class MailManager implements MessageManager {
 	private static final String USERNAME = "s_steimel";
 	private static final String SENDER = "scim@hwr-berlin.de";
 	private static final String CHARSET = "UTF-8";
-	private static final String CONTENT = "Stundenplanaenderung";
+	private static final String CONTENT = "Stundenplan\u00e4nderung";
 
 	/**
 	 * this method is used to provide information to users in this case via
@@ -110,13 +110,13 @@ public class MailManager implements MessageManager {
 	 * @return generatedText the generated email text
 	 */
 	private String generateText(List<Lecture> pList) {
-		String generatedText = "";
+		String generatedText = "Hallo liebe Studierende,\n\nIn eurem Stundenplan haben sich folgende \u00c4nderungen ergeben:\n";
 		for (Lecture lecture : pList) {
 
 			if (lecture.getIsCreated()) {
 				generatedText += "\nNeue " + lecture.toString();
 			} else {
-				generatedText += "\nGeloeschte " + lecture.toString();
+				generatedText += "\nGel\u00f6schte " + lecture.toString();
 			}
 		}
 		return generatedText;
