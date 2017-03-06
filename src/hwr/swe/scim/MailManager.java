@@ -116,7 +116,7 @@ public class MailManager implements MessageManager {
 			if (lecture.getIsCreated()) {
 				generatedText += "\nNeue " + lecture.toString();
 			} else {
-				generatedText += "\nGel\u00f6schte " + lecture.toString();
+				generatedText += "\nAbgesagte " + lecture.toString();
 			}
 		}
 		return generatedText;
