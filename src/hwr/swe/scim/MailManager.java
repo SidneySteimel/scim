@@ -27,9 +27,10 @@ public class MailManager implements MessageManager {
 	 * mail shall be send to 5. the charset that shall be used in the emails
 	 * text 6. the content of the email
 	 */
-	private static final String MAIL_SMTP_SERVER = "smtp.stud.hwr-berlin.de"; // Port 465
-	private static final String USERNAME = "s_steimel";
-	private static final String SENDER = "scim@hwr-berlin.de";
+	private static final String MAIL_SMTP_SERVER = "mail.gmx.net"; // Port 465
+	private static final String USERNAME = "hwr_scim@gmx.de";
+	private static final String PASSWORD = "Test1234";
+	private static final String SENDER = "hwr_scim@gmx.de";
 	private static final String CHARSET = "UTF-8";
 	private static final String CONTENT = "Stundenplan\u00e4nderung";
 
@@ -37,21 +38,22 @@ public class MailManager implements MessageManager {
 	 * this method is used to provide information to users in this case via
 	 * email
 	 * 
-	 * @throws EmailException 
-	 * 				if message could not be send to users
-	 * @throws IOException 
-	 * 				if password reading failed
+	 * @throws EmailException
+	 *             if message could not be send to users
+	 * @throws IOException
+	 *             if password reading failed
 	 */
 	@Override
-	public void giveMessage(List<Lecture> pLectureList, List<String> pReceiversList) throws IOException, EmailException {
+	public void giveMessage(List<Lecture> pLectureList, List<String> pReceiversList)
+			throws IOException, EmailException {
 		sendMail(MAIL_SMTP_SERVER, USERNAME, SENDER, pReceiversList, CHARSET, CONTENT, generateText(pLectureList));
 	}
 
 	/**
 	 * this method sends the email first an authenticator gets attached to the
-	 * email the user is prompted for a password (so we dont have to write one
+	 * email the user is prompted for a password (so we don't have to write one
 	 * into the code) then all the required attributes get set to the email and
-	 * after that the mail gets sended
+	 * after that the mail gets sent
 	 * 
 	 * @param pMailserver
 	 *            the mail sending server
@@ -69,17 +71,13 @@ public class MailManager implements MessageManager {
 	 *            mail body
 	 * 
 	 * @throws IOException
-	 * 				if reading password from commandline fails
+	 *             if reading password from commandline fails
 	 * @throws EmailException
-	 * 				if there was a problem sending an email
+	 *             if there was a problem sending an email
 	 */
 	private void sendMail(String pMailserver, String pUsername, String pAbsender, List<String> pReceiversList,
 			String pTextCharset, String pBetreff, String pText) throws IOException, EmailException {
-		String password = null;
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Please enter password: ");
-
-		password = br.readLine();
+		String password = PASSWORD;
 
 		SimpleEmail email = new org.apache.commons.mail.SimpleEmail();
 		if (pUsername != null && password != null) {
@@ -90,9 +88,9 @@ public class MailManager implements MessageManager {
 		email.setFrom(pAbsender);
 
 		for (String Empfaenger : pReceiversList) {
-			email.addTo(Empfaenger);
+			email.addBcc(Empfaenger);
 		}
-		
+
 		email.setCharset(pTextCharset);
 		email.setSubject(pBetreff);
 		email.setMsg(pText);
