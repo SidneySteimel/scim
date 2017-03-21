@@ -14,7 +14,7 @@ import hwr.swe.scim.log.LogDat;
 import hwr.swe.scim.log.LogLevel;
 import hwr.swe.scim.file.*;
 
-public class MainProgramm {
+public class MainProgram {
 
 	private final static String OLD_FILES_DIRECTORY = "ics";
 	private final static String NEW_FILES_DIRECTORY = "";
